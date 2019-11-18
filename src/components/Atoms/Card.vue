@@ -1,10 +1,22 @@
 <template>
   <div class="card">
-    <article>
-      <h2>{{ title }}</h2>
-      <h3>{{ subtitle }}</h3>
-
-      <p>{{ description }}</p>
+    <article class="custom-card-header">
+      <figure class="image is-128x128">
+        <img 
+          :src="headerImage"
+          alt 
+          srcset 
+        >
+      </figure>
+      <h2 class="card-header-title">
+        {{ title }}
+      </h2>
+    </article>
+    <article class="card-content">
+      <slot name="body" />
+    </article>
+    <article class="card-footer">
+      <slot name="footer" />
     </article>
   </div>
 </template>
@@ -14,15 +26,11 @@ export default {
   props: {
     title: {
       type: String,
-      default: ""
+      default: null
     },
-    subtitle: {
+    headerImage: {
       type: String,
-      default: ""
-    },
-    description: {
-      type: String,
-      default: ""
+      default: null
     }
   }
 };
@@ -32,45 +40,51 @@ export default {
 .card {
   background: #fff;
   margin: 4em auto;
-  width: 90%;
-  height: 90%;
-  max-width: 496px;
-  max-height: 496px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+  height: fit-content;
+  display: flow-root;
+  align-self: center;
+}
 
-  article {
-    padding: 1.25em 1.5em;
+.card-footer {
+  align-self: flex-start;
+  padding: 1.25em;
+  text-align: center;
+  display: inherit !important;
+}
 
-    h2,
-    h3 {
-      margin: 0;
-      font-weight: 300;
-    }
+.custom-card-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5em auto 0.3em;
+}
 
-    h2 {
-      font-size: em(28);
-      color: #222222;
-    }
+.card-header-title {
+  color: #222222;
+  text-align: center;
+  padding: 0.5rem 1rem 0;
+}
 
-    h3 {
-      font-size: em(15);
-      color: #838689;
-    }
+article.custom-card-header > h2 {
+  font-size: em(28);
+  font-size: 44px;
+  max-width: 250px;
+  min-width: fit-content;
+  margin: 0;
+  font-weight: 300;
+  margin: 0.4rem 0 0;
+  color: #2193b0;
+}
 
-    p {
-      margin: 1.25em 0;
-      font-size: em(13);
-      font-weight: 400;
-      color: #222222;
+.card-content {
+  max-height: 325px;
+}
 
-      span {
-        font-weight: 700;
-        color: #000000;
-      }
-    }
-  }
+.noTodos {
+  margin-top: 1.25em !important;
 }
 </style>
